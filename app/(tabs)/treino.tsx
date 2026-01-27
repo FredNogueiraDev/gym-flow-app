@@ -59,17 +59,20 @@ export default function TreinoScreen() {
     );
   }
 
+  const isSessionActive = concluidos.length > 0;
+
   return (
     <View className="flex-1 bg-twilight-950 pt-12">
       <View className="px-6 mb-4">
         <Text className="text-white font-black text-2xl">Cronograma de Treino</Text>
       </View>
 
-      <ScrollView contentContainerStyle={{ paddingHorizontal: 24 }}>
+      <ScrollView contentContainerStyle={{ paddingHorizontal: 12 }}>
         <WorkoutSelector 
           activeIndex={activeIndex} 
           options={workouts} 
-          onSelect={setActiveIndex} 
+          onSelect={setActiveIndex}
+          sessionActive={isSessionActive} 
         />
         
         <FocusBanner group={activeWorkout.grupo} />

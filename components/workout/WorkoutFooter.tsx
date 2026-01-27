@@ -67,10 +67,10 @@ export const WorkoutFooter = ({ progress, total, onFinish, onReset }: WorkoutFoo
             
             <TouchableOpacity
                onPress={() => setActionType('finish')}
-               className={`flex-row gap-2 items-center px-4 py-3 rounded-xl ${isComplete ? 'bg-hunter-green-600' : 'bg-hunter-green-600'}`}
+               className={`flex-row items-center p-3 rounded-xl bg-hunter-green-600`}
             >
                <Check size={18} color="#fff" strokeWidth={3} />
-               {isComplete && <Text className="text-white font-bold text-xs uppercase">Finalizar</Text>}
+               {isComplete && <Text className="text-white font-bold text-xs uppercase ml-2">Finalizar</Text>}
             </TouchableOpacity>
         </View>
       </View>

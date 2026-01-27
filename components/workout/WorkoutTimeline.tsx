@@ -4,25 +4,25 @@ import { Text, TouchableOpacity, View } from 'react-native';
 
 export const WorkoutTimeline = ({ exercises, completedIndices, onToggle, onSelect }: any) => {
   return (
-    <View className="pb-32">
+    <View className="pb-24">
       {exercises.map((ex: any) => {
         const isDone = completedIndices.includes(ex.id);
 
         return (
           <TouchableOpacity 
             key={ex.id}
-            onLongPress={() => onSelect(ex)} // Segurar para abrir
-            delayLongPress={500} // ~1 segundo de espera
-            activeOpacity={0.9} // Feedback visual sutil
+            onLongPress={() => onSelect(ex)} 
+            onPress={() => onToggle(ex.id)}
+            delayLongPress={500} 
+            activeOpacity={0.9} 
             className={`
-              mb-4 p-4 rounded-2xl border transition-all relative overflow-hidden flex-row gap-4
+              mb-4 p-4 rounded-2xl border transition-all relative overflow-hidden flex-row
               ${isDone 
                 ? 'bg-hunter-green-950/30 border-hunter-green-500/30' 
                 : 'bg-twilight-900/20 border-twilight-800/60'
               }
             `}
           >
-              {/* 1. Checkbox (Área de toque esquerda) */}
               <TouchableOpacity 
                 onPress={() => onToggle(ex.id)}
                 className={`w-6 h-6 rounded-lg border items-center justify-center mt-1
@@ -36,7 +36,7 @@ export const WorkoutTimeline = ({ exercises, completedIndices, onToggle, onSelec
               </TouchableOpacity>
 
               {/* 2. Conteúdo Central */}
-              <View className="flex-1 pr-2"> 
+              <View className="flex-1 pl-2"> 
                 <Text className={`text-base font-bold uppercase mb-1 ${isDone ? 'text-hunter-green-100 line-through decoration-hunter-green-500/50' : 'text-white'}`}>
                   {ex.name}
                 </Text>
