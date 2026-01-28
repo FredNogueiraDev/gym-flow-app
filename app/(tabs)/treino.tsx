@@ -13,26 +13,39 @@ export default function TreinoScreen() {
   const [workouts, setWorkouts] = useState<any[]>([]);
   const [initialData, setInitialData] = useState<{ sessionId: number | null, completed: number[] }>({ sessionId: null, completed: [] });
   const [selectedExercise, setSelectedExercise] = useState<any>(null);
-  
+
   const weekday = new Date().getDay(); 
-  const initialIndex = weekday === 0 ? 0 : weekday - 1; 
-  const [activeIndex, setActiveIndex] = useState(initialIndex);
+  const weekDayIndex = weekday === 0 ? 0 : weekday - 1; 
+  const [activeIndex, setActiveIndex] = useState(weekDayIndex);
 
   useEffect(() => {
     async function load() {
       const wData = await getWorkoutsWithExercises();
       const sData = await getActiveSessionLogs();
+      
       setWorkouts(wData);
       setInitialData(sData);
-      
-      if (wData.length > 0 && initialIndex >= wData.length) {
-        setActiveIndex(0);
+
+      let targetIndex = -1;
+
+      if (sData.completed.length > 0) {
+        targetIndex = wData.findIndex((workout: any) => 
+          workout.exercicios.some((ex: any) => sData.completed.includes(ex.id))
+        );
+      }
+
+      if (targetIndex !== -1) {
+        setActiveIndex(targetIndex);
+      } else {
+        if (wData.length > 0) {
+          setActiveIndex(weekDayIndex < wData.length ? weekDayIndex : 0);
+        }
       }
       
       setLoading(false);
     }
     load();
-  }, [initialIndex]);
+  }, [weekDayIndex]);
 
   const activeWorkout = workouts[activeIndex];
 
@@ -82,6 +95,7 @@ export default function TreinoScreen() {
           completedIndices={concluidos}
           onToggle={toggleExercicio}
           onSelect={setSelectedExercise}
+          isModalOpen={!!progresso}
         />
       </ScrollView>
 

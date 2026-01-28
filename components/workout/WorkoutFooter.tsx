@@ -40,8 +40,6 @@ export const WorkoutFooter = ({ progress, total, onFinish, onReset }: WorkoutFoo
   return (
     <>
       <View className="absolute bottom-6 left-4 right-4 bg-twilight-950/95 border border-hunter-green-500/30 rounded-2xl p-4 flex-row items-center justify-between shadow-lg">
-        
-        {/* Lado Esquerdo: Info */}
         <View className="flex-row items-center gap-3">
           <View className={`w-10 h-10 rounded-full border items-center justify-center
              ${isComplete ? 'bg-hunter-green-500 border-hunter-green-400' : 'bg-hunter-green-950 border-hunter-green-800'}
@@ -54,7 +52,6 @@ export const WorkoutFooter = ({ progress, total, onFinish, onReset }: WorkoutFoo
           </View>
         </View>
 
-        {/* Lado Direito: Botões */}
         <View className="flex-row gap-2">
             {!isComplete && (
               <TouchableOpacity 
